@@ -68,9 +68,10 @@ class LinkedList:
         if self.is_empty():
             raise ValueError("Empty List Error")
         if self.__head == self.__tail:
+            final = self.__tail.value
             self.__head = self.__tail = None
             self.__count = 0
-            return None
+            return final
 
         second = self.__head.next_node
         first = self.__head
@@ -79,16 +80,17 @@ class LinkedList:
 
         self.__count -= 1
 
-        return first
+        return first.value
 
     def remove_last(self):
         if self.is_empty():
             raise ValueError("Empty List Error")
 
         if self.__head == self.__tail:
+            final = self.__head.value
             self.__head = self.__tail = None
             self.__count = 0
-            return None
+            return final
 
         previous = self.__get_previous()
         last = self.__tail
@@ -96,7 +98,7 @@ class LinkedList:
         self.__tail.next_node = None
 
         self.__count -= 1
-        return last
+        return last.value
 
     def get_last(self):
         if self.is_empty():
