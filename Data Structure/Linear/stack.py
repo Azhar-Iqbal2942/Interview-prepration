@@ -55,6 +55,3 @@ def driver_code():
     ll.push(30)
     ll.push(40)
     print(ll.is_empty())
-
-
-driver_code()
