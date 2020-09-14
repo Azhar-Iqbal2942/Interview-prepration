@@ -31,7 +31,7 @@ class LinkedList:
     def add_last(self, item):
         new_node = Node(item)
 
-        if self.__is_empty():
+        if self.is_empty():
             self.__head = self.__tail = new_node
         else:
             self.__tail.next_node = new_node
@@ -42,7 +42,7 @@ class LinkedList:
     def add_first(self, item):
         new_node = Node(item)
 
-        if self.__is_empty():
+        if self.is_empty():
             self.__head = self.__tail = new_node
         else:
             new_node.next_node = self.__head
@@ -65,33 +65,48 @@ class LinkedList:
         return self.indexOf(item) != -1
 
     def remove_first(self):
-        if self.__is_empty():
+        if self.is_empty():
             raise ValueError("Empty List Error")
         if self.__head == self.__tail:
             self.__head = self.__tail = None
             self.__count = 0
-            return
+            return None
 
         second = self.__head.next_node
+        first = self.__head
         self.__head.next_node = None
         self.__head = second
 
         self.__count -= 1
 
+        return first
+
     def remove_last(self):
-        if self.__is_empty():
+        if self.is_empty():
             raise ValueError("Empty List Error")
 
         if self.__head == self.__tail:
             self.__head = self.__tail = None
             self.__count = 0
-            return
+            return None
 
         previous = self.__get_previous()
+        last = self.__tail
         self.__tail = previous
         self.__tail.next_node = None
 
         self.__count -= 1
+        return last
+
+    def get_last(self):
+        if self.is_empty():
+            return None
+        return self.__tail.value
+
+    def get_first(self):
+        if self.is_empty():
+            return None
+        return self.__head.value
 
     def to_array(self):
         array_converted = []
@@ -102,7 +117,7 @@ class LinkedList:
         return array_converted
 
     def reverse(self):
-        if self.__is_empty():
+        if self.is_empty():
             return
 
         prev = self.__head
@@ -120,7 +135,7 @@ class LinkedList:
         self.__head = prev
 
     def get_Kth_from_end(self, k):
-        if self.__is_empty() or k < 0:
+        if self.is_empty() or k < 0:
             return
         target = self.__head
         current = self.__head
@@ -163,7 +178,7 @@ class LinkedList:
     def size(self):
         return self.__count
 
-    def __is_empty(self):
+    def is_empty(self):
         return self.__head == None
 
     def __get_previous(self):
@@ -177,13 +192,12 @@ class LinkedList:
 
 
 # Driver Code
-lst = LinkedList()
-
-
-lst.add_last(10)
-lst.add_last(20)
-lst.add_last(30)
-lst.add_last(40)
-lst.add_last(50)
-lst.add_last(60)
-print(lst.has_loop())
+def driver_code():
+    lst = LinkedList()
+    lst.add_last(10)
+    lst.add_last(20)
+    lst.add_last(30)
+    lst.add_last(40)
+    lst.add_last(50)
+    lst.add_last(60)
+    print(lst.has_loop())

@@ -1,3 +1,4 @@
+from linked_list import LinkedList
 """
 Basic Operations 
 push()
@@ -31,17 +32,29 @@ class stackUsingArray:
 
 
 class stackUsingLinkedList:
-    pass
+    def __init__(self):
+        self.lst = LinkedList()
+
+    def push(self, value):
+        self.lst.add_last(value)
+
+    def pop(self):
+        return self.lst.remove_last().value
+
+    def peek(self):
+        return self.lst.get_last()
+
+    def is_empty(self):
+        return self.lst.is_empty()
 
 
 def driver_code():
-    arr = stackUsingArray()
-    arr.push(10)
-    arr.push(20)
-    arr.push(30)
-    arr.push(40)
-    print(arr.pop())
-    print(arr.is_empty())
+    ll = stackUsingLinkedList()
+    ll.push(10)
+    ll.push(20)
+    ll.push(30)
+    ll.push(40)
+    print(ll.is_empty())
 
 
 driver_code()
