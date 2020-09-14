@@ -55,31 +55,27 @@ class Expression:
     def __init__(self, expression):
         self.stack = stackUsingLinkedList()
         self.expression = expression
+        self.left_brackets = ['(', '[', '{', '<']
+        self.right_brackets = [')', ']', '}', '>']
 
     def is_balanced(self):
         for char in self.expression:
-            if self.is_left_bracket(char):
+            if self.left_brackets.__contains__(char):
                 self.stack.push(char)
 
-            if self.is_right_bracket(char):
+            if self.right_brackets.__contains__(char):
                 if self.stack.is_empty():
                     return False
 
                 left = self.stack.pop()
-                if self.bracket_matcher(left, char):
+                if not self.bracket_matcher(left, char):
                     return False
 
         return self.stack.is_empty()
 
-    def is_left_bracket(self, char):
-        return char == "(" or char == "[" or char == "{" or char == "<"
-
-    def is_right_bracket(self, char):
-        return char == ")" or char == "]" or char == "}" or char == ">"
-
-    # if error return True else False
+    # if match return True
     def bracket_matcher(self, left, right):
-        return ((right == ")" and left != "(") or (right == "]" and left != "[") or (right == "}" and left != "{") or (right == ">" and left != "<"))
+        return self.left_brackets.index(left) == self.right_brackets.index(right)
 
 
 class Reverser:
@@ -100,5 +96,11 @@ class Reverser:
 
 
 def driver_code():
-    str_reverse = Reverser('abcd')
-    print(str_reverse.string_reverser())
+    # str_reverse = Reverser('abcd')
+    # print(str_reverse.string_reverser())
+
+    exp = Expression('{[(1+2)]')
+    print(exp.is_balanced())
+
+
+driver_code()
