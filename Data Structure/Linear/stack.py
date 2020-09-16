@@ -17,7 +17,7 @@ Build an Expression Checker
 """
 
 
-class stackUsingArray:
+class ArrayStack:
     def __init__(self):
         self.array = []
 
@@ -34,7 +34,7 @@ class stackUsingArray:
         return self.array.__len__() == 0
 
 
-class stackUsingLinkedList:
+class LinkedListStack:
     def __init__(self):
         self.lst = LinkedList()
 
@@ -53,7 +53,7 @@ class stackUsingLinkedList:
 
 class Expression:
     def __init__(self, expression):
-        self.stack = stackUsingLinkedList()
+        self.stack = LinkedListStack()
         self.expression = expression
         self.left_brackets = ['(', '[', '{', '<']
         self.right_brackets = [')', ']', '}', '>']
@@ -80,7 +80,7 @@ class Expression:
 
 class Reverser:
     def __init__(self, item):
-        self.stack = stackUsingLinkedList()
+        self.stack = LinkedListStack()
         self.item = item
 
     def string_reverser(self):
@@ -101,6 +101,3 @@ def driver_code():
 
     exp = Expression('{[(1+2)]')
     print(exp.is_balanced())
-
-
-driver_code()
