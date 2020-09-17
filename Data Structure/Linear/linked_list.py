@@ -11,7 +11,7 @@ size()
 
 -> Tasks
 Reverse LinkList in place.
-Getting Kth node from end in one pass. 
+Getting Kth node from end in one pass.
 
 """
 
@@ -27,6 +27,12 @@ class LinkedList:
         self.__head = head
         self.__tail = tail
         self.__count = 0
+
+    def __iter__(self):
+        node = self.__head
+        while node is not None:
+            yield node
+            node = node.next_node
 
     def add_last(self, item):
         new_node = Node(item)
@@ -63,6 +69,30 @@ class LinkedList:
 
     def contain(self, item):
         return self.indexOf(item) != -1
+
+    def remove(self, value):
+        previous = self.__head
+        current = self.__head
+        target = None
+
+        if self.__head.value == value:
+            self.remove_first()
+            return value
+
+        if self.__tail.value == value:
+            self.remove_last()
+            return value
+
+        while current is not None:
+            if current.value == value:
+                previous.next_node = current.next_node
+                target = current
+                current.next_node = None
+                return target.value
+
+            previous = current
+            current = current.next_node
+        return "Item not Found"
 
     def remove_first(self):
         if self.is_empty():
@@ -109,6 +139,12 @@ class LinkedList:
         if self.is_empty():
             return None
         return self.__head.value
+
+    def get_head(self):
+        return self.__head
+
+    def get_tail(self):
+        return self.__tail
 
     def to_array(self):
         array_converted = []
@@ -202,4 +238,7 @@ def driver_code():
     lst.add_last(40)
     lst.add_last(50)
     lst.add_last(60)
-    print(lst.has_loop())
+    print("Removed Value : ", lst.remove(60))
+
+    for item in lst:
+        print(item.value)

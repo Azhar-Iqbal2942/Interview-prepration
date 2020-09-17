@@ -10,7 +10,7 @@ class ArrayQueue:
         self.rear = 0
 
     def __str__(self):
-        return ', '.join(map(str, self.array))
+        return str(self.array)
 
     def enqueue(self, item):
         if self.is_full():
