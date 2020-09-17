@@ -24,12 +24,10 @@ class HashTable:
 
         # Check if key already exist
         ll = self.array[index]
-        bucket = ll.get_head()
-        while bucket != None:
+        for bucket in ll:
             if bucket.value.key == key:
                 bucket.value.value = value
-                return
-            bucket = bucket.next_node
+                return "Value Updated"
 
         ll.add_last(Entry(key, value))
 
@@ -41,12 +39,10 @@ class HashTable:
             raise ValueError("Value Not Exist")
 
         ll = self.array[index]
-        bucket = ll.get_head()
-
-        while bucket != None:
+        for bucket in ll:
             if bucket.value.key == key:
                 return bucket.value.value
-            bucket = bucket.next_node
+
         return "Not Found"
 
     def remove(self, key):
@@ -73,6 +69,7 @@ def driver_code():
     table.put(6, 'A')
     table.put(8, 'B')
     table.put(11, 'C')
+    print(table.put(11, 'C+'))
 
     print(table.remove(6))
-    print(table.get(6))
+    print(table.get(11))
