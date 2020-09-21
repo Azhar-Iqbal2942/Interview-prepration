@@ -109,6 +109,11 @@ class BinaryTree:
         self.__get_value_at_distance(self.root, distance, nodes)
         return nodes
 
+    def leve_order_traverse(self):
+        for index in range(self.height() + 1):
+            for value in self.get_value_at_distance(index):
+                print(value)
+
     def __traverse_pre_order(self, root):
         if root == None:
             return
@@ -200,7 +205,7 @@ def driver_code():
     tree2.insert(15)
     tree2.insert(18)
 
-    print(tree1.get_value_at_distance(2))
+    tree1.leve_order_traverse()
 
 
 driver_code()
