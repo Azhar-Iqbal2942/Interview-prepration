@@ -38,9 +38,6 @@ class AVLTree:
     def __height(self, root):
         return -1 if root == None else root.height
 
-    def __is_leaf(self, root):
-        return root.left_child == None and root.right_child == None
-
 
 tree = AVLTree()
 tree.insert(10)
