@@ -24,6 +24,9 @@ class Heap:
         self.__bubble_down()
         return item
 
+    def max(self):
+        return self.__array[0]
+
     def __bubble_down(self):
         # parent < children swap them
         index = 0
