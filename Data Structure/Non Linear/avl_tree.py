@@ -14,6 +14,9 @@ class AVLTree:
         self.root = None
         self.count = 0
 
+    def __str__(self):
+        return self.root
+
     def insert(self, value):
         self.root = self.__insert(self.root, value)
 
