@@ -63,15 +63,30 @@ class Graph:
             if len(targets) > 0:
                 print(f"{source} is connected with {targets}")
 
+    def traverse_dfs(self, root):
+        node = self.nodes.get(root)
+        if node is None:
+            return
+        self.__traverse_dfs(node, set())
+
+    def __traverse_dfs(self, node, visited):
+        print(node)
+        visited.add(node)
+
+        for n in self.adjacency_list.get(node):
+            if not visited.__contains__(n):
+                self.__traverse_dfs(n, visited)
+
 
 if __name__ == "__main__":
     graph = Graph()
-    graph.add_node('azhar')
-    graph.add_node('sohaib')
-    graph.add_node('hassin')
-    graph.add_edge('azhar', 'sohaib')
-    graph.add_edge('azhar', 'hassin')
-    graph.add_edge('sohaib', 'hassin')
-    graph.remove_node('sohaib')
+    graph.add_node('A')
+    graph.add_node('B')
+    graph.add_node('C')
+    graph.add_node('D')
+    graph.add_edge('A', 'B')
+    graph.add_edge('B', 'D')
+    graph.add_edge('D', 'C')
+    graph.add_edge('A', 'C')
 
-    graph.print_list()
+    graph.traverse_dfs('G')
