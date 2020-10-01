@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class Node:
     def __init__(self, label):
         self.label = label
@@ -96,16 +99,90 @@ class Graph:
                 if not visited.__contains__(neighbours):
                     stack.append(neighbours)
 
+    def traverse_bfs_iter(self, root):
+        node = self.nodes.get(root)
+        if node is None:
+            return
+
+        visited = set()
+        queue = deque()
+        queue.append(node)
+
+        while len(queue) > 0:
+            current = queue.popleft()
+
+            if visited.__contains__(current):
+                continue
+            print(current)
+            visited.add(current)
+
+            for neighbours in self.adjacency_list.get(current):
+                if not visited.__contains__(neighbours):
+                    queue.append(neighbours)
+
+    def topological_sort(self, root):
+        stack = []
+        visited = set()
+
+        for n in self.nodes.values():
+            self.__topological_sort(n, visited, stack)
+
+        sorted_list = []
+        while len(stack) > 0:
+            sorted_list.append(stack.pop())
+        return sorted_list
+
+    def __topological_sort(self, node, visited, stack):
+        if visited.__contains__(node):
+            return
+
+        visited.add(node)
+
+        for neighbours in self.adjacency_list.get(node):
+            self.__topological_sort(neighbours, visited, stack)
+
+        stack.append(node)
+
+    def has_cycle(self):
+        all_nodes = set()
+        visiting = set()
+        visited = set()
+
+        for n in self.nodes.values():
+            all_nodes.add(n)
+
+        while len(all_nodes) > 0:
+            current = next(iter(all_nodes))
+            if self.__has_cycle(current, all_nodes, visiting, visited):
+                return True
+
+        return False
+
+    def __has_cycle(self, node, all_nodes, visiting, visited):
+        all_nodes.remove(node)
+        visiting.add(node)
+
+        for neighbour in self.adjacency_list.get(node):
+            if visited.__contains__(neighbour):
+                continue
+
+            if visiting.__contains__(neighbour):
+                return True
+            if self.__has_cycle(neighbour, all_nodes, visiting, visited):
+                return True
+
+        visiting.remove(node)
+        visited.add(node)
+        return False
+
 
 if __name__ == "__main__":
     graph = Graph()
     graph.add_node('A')
     graph.add_node('B')
     graph.add_node('C')
-    graph.add_node('D')
     graph.add_edge('A', 'B')
-    graph.add_edge('B', 'D')
-    graph.add_edge('D', 'C')
-    graph.add_edge('A', 'C')
+    graph.add_edge('B', 'C')
+    graph.add_edge('C', 'A')
 
-    graph.traverse_dfs_iter('A')
+    print(graph.has_cycle())
