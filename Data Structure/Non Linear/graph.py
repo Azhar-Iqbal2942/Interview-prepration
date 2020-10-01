@@ -2,9 +2,6 @@ class Node:
     def __init__(self, label):
         self.label = label
 
-    def __str__(self):
-        return str(self.label)
-
     def __repr__(self):
         return str(self.label)
 
@@ -77,6 +74,28 @@ class Graph:
             if not visited.__contains__(n):
                 self.__traverse_dfs(n, visited)
 
+    def traverse_dfs_iter(self, root):
+        node = self.nodes.get(root)
+        if node is None:
+            return
+
+        stack = []
+        visited = set()
+        stack.append(node)
+
+        while len(stack) > 0:
+            current = stack.pop()
+
+            if visited.__contains__(current):
+                continue
+
+            print(current)
+            visited.add(current)
+
+            for neighbours in self.adjacency_list.get(current):
+                if not visited.__contains__(neighbours):
+                    stack.append(neighbours)
+
 
 if __name__ == "__main__":
     graph = Graph()
@@ -89,4 +108,4 @@ if __name__ == "__main__":
     graph.add_edge('D', 'C')
     graph.add_edge('A', 'C')
 
-    graph.traverse_dfs('G')
+    graph.traverse_dfs_iter('A')
