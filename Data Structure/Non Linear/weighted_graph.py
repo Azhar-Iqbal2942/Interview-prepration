@@ -69,7 +69,7 @@ class WeightedGraph:
         self.adjacency_list.get(to_node).append(
             Edge(to_node, from_node, weight))
 
-    def get_shortest_path(self, f, t):
+    def get_shortest_path(self, f, t): # f->From t-> To
         from_node = self.nodes.get(f)
         to_node = self.nodes.get(t)
         distances = {}
